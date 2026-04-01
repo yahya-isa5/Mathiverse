@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathiverse | Your All-in-One Math Universe</title>
+    <title>Mathiverse | Ultimate Suite</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
@@ -15,159 +15,261 @@
             color: white;
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            overflow-x: hidden;
         }
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        }
+        .nav-glass {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .math-gradient {
             background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .show-section {
+        .tool-section { 
+            display: none; 
+            opacity: 0;
+        }
+        .is-active {
             display: block !important;
-            animation: fadeIn 0.8s ease forwards;
+            opacity: 1 !important;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .calc-btn {
+            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.05);
         }
+        .calc-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .calc-btn:active { transform: scale(0.95); }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <nav class="fixed w-full z-50 glass border-t-0 border-x-0">
-        <div class="max-w-7xl mx-auto p-4 flex justify-between items-center">
-            <div class="text-2xl font-extrabold tracking-tighter uppercase leading-none">Math<span class="text-indigo-500">iverse</span></div>
-            <div class="space-x-6 hidden md:flex items-center text-sm font-medium">
-                <a href="#features" class="hover:text-indigo-400 transition">Tools</a>
-                <a href="#resources" class="hover:text-indigo-400 transition">Resources</a>
+    <nav class="fixed top-0 left-0 w-full z-50 nav-glass">
+        <div class="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter uppercase italic flex items-center">
+                Math<span class="text-indigo-500">iverse</span>
+            </div>
+            
+            <div class="flex items-center gap-10">
+                <button onclick="scrollToResources()" class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white transition">Resources</button>
+                <div class="h-4 w-px bg-white/10"></div>
+                <div class="flex gap-6">
+                    <button onclick="openTool('graph')" class="text-[11px] font-black uppercase tracking-[0.2em] hover:text-indigo-400 transition">Grapher</button>
+                    <button onclick="openTool('matrix')" class="text-[11px] font-black uppercase tracking-[0.2em] hover:text-purple-400 transition">Matrix</button>
+                    <button onclick="openTool('calc')" class="text-[11px] font-black uppercase tracking-[0.2em] hover:text-pink-400 transition">Calc</button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header class="pt-48 pb-20 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <span class="px-4 py-1 rounded-full border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-widest bg-indigo-500/5">Beta v1.2 Now Live</span>
-            <h1 class="text-6xl md:text-8xl font-extrabold mt-8 leading-tight">
-                Explore the <br><span class="math-gradient">Math Universe</span>
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl mt-8 max-w-2xl mx-auto leading-relaxed">
-                A complete toolkit for graphing, equations, calculus, and matrices. Whether you’re a student or a lifelong learner, Mathiverse powers your journey.
-            </p>
-            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="toggleGrapher()" id="btn-text" class="bg-white text-black px-10 py-4 rounded-xl font-bold hover:scale-105 transition-transform shadow-xl shadow-white/10">
-                    Open Graphing Engine
-                </button>
-                <a href="#resources" class="glass px-10 py-4 rounded-xl font-bold flex items-center justify-center hover:bg-white/5 transition">
-                    Browse Lessons
-                </a>
-            </div>
+    <header class="pt-56 pb-20 px-6 text-center">
+        <div class="inline-block px-4 py-1.5 rounded-full border border-indigo-500/30 text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-400 mb-8 bg-indigo-500/5">
+            Precision Suite v2.1
+        </div>
+        <h1 class="text-6xl md:text-8xl font-extrabold mb-10 tracking-tighter">
+            Explore the <span class="math-gradient">Math Universe</span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">The ultimate toolkit for visualizing functions, calculating complex matrices, and solving equations with absolute precision.</p>
+        
+        <div class="flex flex-wrap justify-center gap-5">
+            <button onclick="openTool('graph')" class="bg-white text-black px-12 py-5 rounded-2xl font-black hover:scale-105 transition shadow-2xl">Graphing Engine</button>
+            <button onclick="openTool('matrix')" class="glass px-12 py-5 rounded-2xl font-black hover:bg-white/5 transition border-purple-500/30">Matrix Solver</button>
+            <button onclick="openTool('calc')" class="glass px-12 py-5 rounded-2xl font-black hover:bg-white/5 transition border-pink-500/30 text-pink-400">Scientific Calc</button>
         </div>
     </header>
 
-    <section id="graph-section" style="display: none;" class="max-w-6xl mx-auto px-6 py-10">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-bold text-indigo-400 uppercase tracking-widest text-sm">Graphing Dashboard</h3>
-            <button onclick="toggleGrapher()" class="text-gray-500 hover:text-white text-sm">✕ Close Engine</button>
+    <main class="max-w-6xl mx-auto px-6 mb-32">
+        <section id="graph-section" class="tool-section py-10">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-[11px] font-black uppercase tracking-[0.4em] text-indigo-400">Visualizer Core</span>
+                <button onclick="closeAll()" class="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition">✕ Close Workspace</button>
+            </div>
+            <div class="glass p-2 rounded-[3rem] border-indigo-500/20 shadow-2xl overflow-hidden">
+                <div id="calculator" style="width: 100%; height: 600px;"></div>
+            </div>
+        </section>
+
+        <section id="matrix-section" class="tool-section py-10">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-[11px] font-black uppercase tracking-[0.4em] text-purple-400">Linear Algebra Hub</span>
+                <button onclick="closeAll()" class="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition">✕ Close Workspace</button>
+            </div>
+            <div class="glass p-12 rounded-[4rem] border-purple-500/20 max-w-2xl mx-auto shadow-2xl text-center">
+                <div class="mb-10">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-4">Set Dimensions</p>
+                    <select id="matrix-size" onchange="generateMatrix()" class="bg-black/60 border border-white/10 rounded-xl px-8 py-4 outline-none cursor-pointer font-black text-indigo-400 text-sm">
+                        <option value="2">2 × 2</option>
+                        <option value="3" selected>3 × 3</option>
+                        <option value="4">4 × 4</option>
+                    </select>
+                </div>
+                <div id="matrix-container" class="grid gap-4 mb-10 justify-center"></div>
+                <button onclick="calculateDynamicDet()" class="w-full bg-purple-600 py-6 rounded-2xl font-black text-xl hover:bg-purple-500 transition shadow-xl shadow-purple-600/20 uppercase tracking-widest">Calculate Determinant</button>
+                <div class="mt-12 pt-10 border-t border-white/5">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">Resulting Determinant</p>
+                    <div id="matrix-result" class="text-7xl font-black tracking-tighter text-white">--</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calc-section" class="tool-section py-10">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-[11px] font-black uppercase tracking-[0.4em] text-pink-400">Scientific Engine</span>
+                <button onclick="closeAll()" class="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition">✕ Close Workspace</button>
+            </div>
+            <div class="glass p-12 rounded-[4rem] border-pink-500/20 max-w-[450px] mx-auto shadow-2xl">
+                <div class="bg-black/50 w-full mb-10 p-12 rounded-[2rem] text-right border border-white/5 shadow-inner">
+                    <div id="calc-display" class="text-6xl font-light tracking-tight truncate text-white">0</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4">
+                    <button onclick="clearCalc()" class="calc-btn py-7 rounded-2xl font-black text-pink-500 bg-pink-500/5 col-span-2">AC</button>
+                    <button onclick="delCalc()" class="calc-btn py-7 rounded-2xl font-black text-gray-500">DEL</button>
+                    <button onclick="appendCalc('/')" class="calc-btn py-7 rounded-2xl font-black text-indigo-400 text-xl">÷</button>
+                    
+                    <button onclick="appendCalc('7')" class="calc-btn py-7 rounded-2xl font-bold text-xl">7</button>
+                    <button onclick="appendCalc('8')" class="calc-btn py-7 rounded-2xl font-bold text-xl">8</button>
+                    <button onclick="appendCalc('9')" class="calc-btn py-7 rounded-2xl font-bold text-xl">9</button>
+                    <button onclick="appendCalc('*')" class="calc-btn py-7 rounded-2xl font-black text-indigo-400 text-xl">×</button>
+                    
+                    <button onclick="appendCalc('4')" class="calc-btn py-7 rounded-2xl font-bold text-xl">4</button>
+                    <button onclick="appendCalc('5')" class="calc-btn py-7 rounded-2xl font-bold text-xl">5</button>
+                    <button onclick="appendCalc('6')" class="calc-btn py-7 rounded-2xl font-bold text-xl">6</button>
+                    <button onclick="appendCalc('-')" class="calc-btn py-7 rounded-2xl font-black text-indigo-400 text-xl">−</button>
+                    
+                    <button onclick="appendCalc('1')" class="calc-btn py-7 rounded-2xl font-bold text-xl">1</button>
+                    <button onclick="appendCalc('2')" class="calc-btn py-7 rounded-2xl font-bold text-xl">2</button>
+                    <button onclick="appendCalc('3')" class="calc-btn py-7 rounded-2xl font-bold text-xl">3</button>
+                    <button onclick="appendCalc('+')" class="calc-btn py-7 rounded-2xl font-black text-indigo-400 text-xl">+</button>
+                    
+                    <button onclick="appendCalc('0')" class="calc-btn py-7 rounded-2xl font-bold text-xl">0</button>
+                    <button onclick="appendCalc('.')" class="calc-btn py-7 rounded-2xl font-bold text-xl">.</button>
+                    <button onclick="solveCalc()" class="calc-btn col-span-2 bg-pink-600 py-7 rounded-2xl font-black text-4xl hover:bg-pink-500 shadow-2xl shadow-pink-600/40">=</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="resources-section" class="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <div class="text-center mb-20">
+            <h2 class="text-6xl font-black mb-6 italic tracking-tighter">Resource <span class="math-gradient">Nebula</span></h2>
+            <p class="text-gray-500 tracking-[0.5em] uppercase text-[10px] font-black">Foundation library for advanced learners</p>
         </div>
-        <div class="glass p-2 rounded-[2rem] border-indigo-500/20 shadow-2xl">
-            <div id="calculator" style="width: 100%; height: 600px;"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="glass p-12 rounded-[2.5rem] hover:border-indigo-500/40 transition-all group cursor-pointer hover:-translate-y-3">
+                <span class="text-indigo-400 text-[10px] font-black uppercase tracking-widest">Guide</span>
+                <h4 class="font-bold text-2xl mt-4 group-hover:text-indigo-400 transition leading-tight">The Derivative Handbook</h4>
+            </div>
+            <div class="glass p-12 rounded-[2.5rem] hover:border-purple-500/40 transition-all group cursor-pointer hover:-translate-y-3">
+                <span class="text-purple-400 text-[10px] font-black uppercase tracking-widest">Algebra</span>
+                <h4 class="font-bold text-2xl mt-4 group-hover:text-purple-400 transition leading-tight">Quadratic Mastery</h4>
+            </div>
+            <div class="glass p-12 rounded-[2.5rem] hover:border-pink-500/40 transition-all group cursor-pointer hover:-translate-y-3">
+                <span class="text-pink-400 text-[10px] font-black uppercase tracking-widest">Geometry</span>
+                <h4 class="font-bold text-2xl mt-4 group-hover:text-pink-400 transition leading-tight">Trig Cheat Sheet</h4>
+            </div>
+            <div class="glass p-12 rounded-[2.5rem] hover:border-blue-500/40 transition-all group cursor-pointer hover:-translate-y-3">
+                <span class="text-blue-400 text-[10px] font-black uppercase tracking-widest">Logic</span>
+                <h4 class="font-bold text-2xl mt-4 group-hover:text-blue-400 transition leading-tight">Proof Techniques</h4>
+            </div>
         </div>
-        <p class="text-center text-gray-500 mt-6 text-sm italic">
-            Tip: Type <span class="text-indigo-400 font-bold text-base italic">y = sin(x)</span> in the panel above.
-        </p>
     </section>
 
-    <section id="features" class="max-w-7xl mx-auto px-6 py-24">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-10 rounded-3xl">
-                <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 text-2xl mb-6">📈</div>
-                <h3 class="text-2xl font-bold mb-4">Calculus</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Automated derivatives and integrals with step-by-step logic to help you learn.</p>
-            </div>
-            <div class="glass p-10 rounded-3xl">
-                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 text-2xl mb-6">⊞</div>
-                <h3 class="text-2xl font-bold mb-4">Matrices</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Solve linear systems, find determinants, and visualize transformations instantly.</p>
-            </div>
-            <div class="glass p-10 rounded-3xl">
-                <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center text-pink-400 text-2xl mb-6">📊</div>
-                <h3 class="text-2xl font-bold mb-4">Statistics</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Analyze datasets, calculate standard deviations, and plot normal distributions.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="resources" class="max-w-7xl mx-auto px-6 py-24 mb-20 bg-white/5 rounded-[3rem] border border-white/5">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Resource <span class="math-gradient">Nebula</span></h2>
-            <p class="text-gray-400">Master the foundations with our curated library.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-indigo-500">
-                <p class="text-indigo-400 text-xs font-bold mb-2 uppercase">Guide</p>
-                <h4 class="text-lg font-bold">The Derivative Handbook</h4>
-            </div>
-            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-purple-500">
-                <p class="text-purple-400 text-xs font-bold mb-2 uppercase">Algebra</p>
-                <h4 class="text-lg font-bold">Quadratic Mastery</h4>
-            </div>
-            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-pink-500">
-                <p class="text-pink-400 text-xs font-bold mb-2 uppercase">Geometry</p>
-                <h4 class="text-lg font-bold">Trig Cheat Sheet</h4>
-            </div>
-            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-blue-500">
-                <p class="text-blue-400 text-xs font-bold mb-2 uppercase">Logic</p>
-                <h4 class="text-lg font-bold">Proof Techniques</h4>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center border-t border-white/5">
-        <div class="text-gray-600 text-sm font-medium tracking-widest uppercase">
-            MATHIVERSE &copy; 2026
-        </div>
+    <footer class="py-20 text-center border-t border-white/5 text-gray-700 text-[10px] font-black tracking-[0.8em] uppercase">
+        Mathiverse &bull; Design for the Future &bull; 2026
     </footer>
 
     <script>
         let calculatorInstance = null;
+        let currentCalcInput = '0';
 
-        function toggleGrapher() {
-            const section = document.getElementById('graph-section');
-            const btn = document.getElementById('btn-text');
+        function openTool(name) {
+            document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('is-active'));
+            const target = document.getElementById(name + '-section');
+            target.classList.add('is-active');
             
-            if (section.style.display === "none") {
-                // Show Section
-                section.style.display = "block";
-                section.classList.add('show-section');
-                btn.innerText = "Active Engine";
-                
-                // Initialize if first time
-                if (!calculatorInstance && typeof Desmos !== 'undefined') {
-                    const elt = document.getElementById('calculator');
-                    calculatorInstance = Desmos.GraphingCalculator(elt, {
-                        keypad: true,
-                        expressions: true,
-                        autosize: true
-                    });
-                    calculatorInstance.setExpression({ id: 'graph1', latex: 'y=x^2', color: '#6366f1' });
-                }
-                
-                // Scroll to it
-                section.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                // Hide Section
-                section.style.display = "none";
-                btn.innerText = "Open Graphing Engine";
+            if(name === 'graph' && !calculatorInstance) {
+                calculatorInstance = Desmos.GraphingCalculator(document.getElementById('calculator'));
+            } else if (name === 'matrix') { 
+                generateMatrix(); 
+            }
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function closeAll() {
+            document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('is-active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToResources() {
+            document.getElementById('resources-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Matrix Solver Logic
+        function generateMatrix() {
+            const size = parseInt(document.getElementById('matrix-size').value);
+            const container = document.getElementById('matrix-container');
+            container.style.gridTemplateColumns = `repeat(${size}, minmax(80px, 100px))`;
+            container.innerHTML = '';
+            for (let i = 0; i < size * size; i++) {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.className = `matrix-val bg-white/5 border border-white/10 rounded-2xl p-6 text-center font-black text-2xl outline-none focus:border-purple-500 focus:bg-purple-500/10 transition`;
+                input.value = "0";
+                container.appendChild(input);
+            }
+        }
+
+        function getDet(m) {
+            if (m.length === 1) return m[0][0];
+            if (m.length === 2) return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
+            return m[0].reduce((r, v, i) => r + (Math.pow(-1, i) * v * getDet(m.slice(1).map(c => c.filter((_, j) => i !== j)))), 0);
+        }
+
+        function calculateDynamicDet() {
+            const size = parseInt(document.getElementById('matrix-size').value);
+            const inputs = document.getElementsByClassName('matrix-val');
+            let matrix = [];
+            for (let i = 0; i < size; i++) {
+                let row = [];
+                for (let j = 0; j < size; j++) row.push(parseFloat(inputs[i * size + j].value) || 0);
+                matrix.push(row);
+            }
+            document.getElementById('matrix-result').innerText = getDet(matrix);
+        }
+
+        // Scientific Calculator Logic
+        function updateCalcDisplay() {
+            document.getElementById('calc-display').innerText = currentCalcInput;
+        }
+        function appendCalc(char) {
+            if (currentCalcInput === '0' && char !== '.') currentCalcInput = char;
+            else currentCalcInput += char;
+            updateCalcDisplay();
+        }
+        function clearCalc() {
+            currentCalcInput = '0';
+            updateCalcDisplay();
+        }
+        function delCalc() {
+            currentCalcInput = currentCalcInput.slice(0, -1) || '0';
+            updateCalcDisplay();
+        }
+        function solveCalc() {
+            try {
+                let result = eval(currentCalcInput);
+                currentCalcInput = String(Number.isInteger(result) ? result : result.toFixed(4));
+                updateCalcDisplay();
+            } catch {
+                document.getElementById('calc-display').innerText = "Error";
+                setTimeout(clearCalc, 1000);
             }
         }
     </script>
-
 </body>
 </html>
