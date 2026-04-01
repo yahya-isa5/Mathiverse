@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathiverse | Your All-in-One Math Universe</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,15 +20,14 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
-        .glass:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: #6366f1;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
-        }
         .math-gradient {
             background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        #calculator {
+            border-radius: 1rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -35,87 +35,102 @@
 
     <nav class="fixed w-full z-50 glass border-t-0 border-x-0">
         <div class="max-w-7xl mx-auto p-4 flex justify-between items-center">
-            <div class="text-2xl font-extrabold tracking-tighter uppercase">Math<span class="text-indigo-500">iverse</span></div>
+            <div class="text-2xl font-extrabold tracking-tighter uppercase leading-none">Math<span class="text-indigo-500">iverse</span></div>
             <div class="space-x-6 hidden md:flex items-center text-sm font-medium">
+                <a href="#graph-section" class="hover:text-indigo-400 transition">Grapher</a>
                 <a href="#features" class="hover:text-indigo-400 transition">Tools</a>
                 <a href="#resources" class="hover:text-indigo-400 transition">Resources</a>
-                <a href="#" class="bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded-lg transition shadow-lg shadow-indigo-500/20">Launch App</a>
             </div>
         </div>
     </nav>
 
-    <header class="pt-40 pb-20 px-6 text-center">
+    <header class="pt-32 pb-10 px-6 text-center">
         <div class="max-w-4xl mx-auto">
-            <span class="px-4 py-1 rounded-full border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-widest bg-indigo-500/5">Beta v1.0 Now Live</span>
-            <h1 class="text-6xl md:text-8xl font-extrabold mt-6 leading-tight">
-                Your All-in-One <br><span class="math-gradient">Math Universe</span>
+            <span class="px-4 py-1 rounded-full border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-widest bg-indigo-500/5">Interactive Engine v1.0</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mt-6 leading-tight">
+                Explore the <span class="math-gradient">Math Universe</span>
             </h1>
-            <p class="text-gray-400 text-lg md:text-xl mt-8 max-w-2xl mx-auto leading-relaxed">
-                A complete toolkit for graphing, equations, calculus, and matrices. Whether you’re a student or a lifelong learner, Mathiverse powers your journey.
+            <p class="text-gray-400 text-lg mt-6 max-w-xl mx-auto">
+                Don't just solve—visualize. Use our interactive graphing engine below to explore functions in real-time.
             </p>
-            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-4">
-                <button class="bg-white text-black px-10 py-4 rounded-xl font-bold hover:scale-105 transition-transform">Start Calculating</button>
-                <a href="#resources" class="glass px-10 py-4 rounded-xl font-bold flex items-center justify-center">Browse Lessons</a>
-            </div>
         </div>
     </header>
 
-    <section id="features" class="max-w-7xl mx-auto px-6 py-24">
+    <section id="graph-section" class="max-w-6xl mx-auto px-6 pb-24">
+        <div class="glass p-2 rounded-[2rem] border-indigo-500/20">
+            <div id="calculator" style="width: 100%; height: 600px;"></div>
+        </div>
+        <p class="text-center text-gray-500 mt-4 text-sm italic underline decoration-indigo-500/30">
+            Tip: Type y = sin(x) or y = x^2 in the panel above.
+        </p>
+    </section>
+
+    <section id="features" class="max-w-7xl mx-auto px-6 py-20">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="glass p-10 rounded-3xl">
                 <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 text-2xl mb-6">📈</div>
-                <h3 class="text-2xl font-bold mb-4">Graphing</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Visualize functions in 2D and 3D with interactive sliders and real-time data plotting.</p>
-            </div>
-            <div class="glass p-10 rounded-3xl">
-                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 text-2xl mb-6">∫</div>
                 <h3 class="text-2xl font-bold mb-4">Calculus</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Automated derivatives and integrals with step-by-step logic to help you learn, not just solve.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Automated derivatives and integrals with step-by-step logic to help you learn.</p>
             </div>
             <div class="glass p-10 rounded-3xl">
-                <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center text-pink-400 text-2xl mb-6">⊞</div>
+                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 text-2xl mb-6">⊞</div>
                 <h3 class="text-2xl font-bold mb-4">Matrices</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Solve linear systems, find determinants, and visualize transformations instantly.</p>
             </div>
+            <div class="glass p-10 rounded-3xl">
+                <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center text-pink-400 text-2xl mb-6">📊</div>
+                <h3 class="text-2xl font-bold mb-4">Statistics</h3>
+                <p class="text-gray-400 leading-relaxed text-sm">Analyze datasets, calculate standard deviations, and plot normal distributions.</p>
+            </div>
         </div>
     </section>
 
-    <section id="resources" class="max-w-7xl mx-auto px-6 py-24 bg-white/5 rounded-[3rem] border border-white/5">
+    <section id="resources" class="max-w-7xl mx-auto px-6 py-24 mb-20 bg-white/5 rounded-[3rem] border border-white/5">
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4">Resource <span class="math-gradient">Nebula</span></h2>
-            <p class="text-gray-400">Master the foundations with our curated library of resources.</p>
+            <p class="text-gray-400">Master the foundations with our curated library.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="glass p-6 rounded-2xl group cursor-pointer">
-                <p class="text-indigo-400 text-xs font-bold mb-2">CALCULUS</p>
-                <h4 class="text-lg font-bold group-hover:text-indigo-400 transition">Derivative Handbook</h4>
-                <p class="text-gray-500 text-sm mt-2">Visual proofs and rules for complex functions.</p>
+            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-indigo-500">
+                <p class="text-indigo-400 text-xs font-bold mb-2 uppercase">Guide</p>
+                <h4 class="text-lg font-bold">The Derivative Handbook</h4>
             </div>
-            <div class="glass p-6 rounded-2xl group cursor-pointer">
-                <p class="text-purple-400 text-xs font-bold mb-2">ALGEBRA</p>
-                <h4 class="text-lg font-bold group-hover:text-purple-400 transition">Quadratic Master</h4>
-                <p class="text-gray-500 text-sm mt-2">Solving for roots using three different methods.</p>
+            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-purple-500">
+                <p class="text-purple-400 text-xs font-bold mb-2 uppercase">Algebra</p>
+                <h4 class="text-lg font-bold">Quadratic Mastery</h4>
             </div>
-            <div class="glass p-6 rounded-2xl group cursor-pointer">
-                <p class="text-pink-400 text-xs font-bold mb-2">GEOMETRY</p>
-                <h4 class="text-lg font-bold group-hover:text-pink-400 transition">Trig Identities</h4>
-                <p class="text-gray-500 text-sm mt-2">The ultimate cheat sheet for triangles and circles.</p>
+            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-pink-500">
+                <p class="text-pink-400 text-xs font-bold mb-2 uppercase">Geometry</p>
+                <h4 class="text-lg font-bold">Trig Cheat Sheet</h4>
             </div>
-            <div class="glass p-6 rounded-2xl group cursor-pointer">
-                <p class="text-blue-400 text-xs font-bold mb-2">STATS</p>
-                <h4 class="text-lg font-bold group-hover:text-blue-400 transition">Data Visuals</h4>
-                <p class="text-gray-500 text-sm mt-2">Interactive guide to bell curves and probability.</p>
+            <div class="glass p-6 rounded-2xl group cursor-pointer hover:border-blue-500">
+                <p class="text-blue-400 text-xs font-bold mb-2 uppercase">Logic</p>
+                <h4 class="text-lg font-bold">Proof Techniques</h4>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center">
-        <div class="text-gray-600 text-sm">
-            <div class="font-bold mb-4 uppercase tracking-tighter text-gray-400">MATHIVERSE</div>
-            &copy; 2026 Designed for the curious mind.
+    <footer class="py-10 text-center border-t border-white/5">
+        <div class="text-gray-600 text-sm font-medium tracking-widest uppercase">
+            MATHIVERSE &copy; 2026
         </div>
     </footer>
+
+    <script>
+        var elt = document.getElementById('calculator');
+        var calculator = Desmos.GraphingCalculator(elt, {
+            keypad: true,
+            expressions: true,
+            settingsMenu: true,
+            zoomButtons: true,
+            border: false,
+            autosize: true
+        });
+        
+        // Welcome function: A simple Parabola
+        calculator.setExpression({ id: 'graph1', latex: 'y=x^2', color: '#6366f1' });
+    </script>
 
 </body>
 </html>
