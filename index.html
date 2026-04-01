@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathiverse | Ultimate Suite</title>
-    
+    <title>Mathiverse | Standardized Suite</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
             background: radial-gradient(circle at top right, #1e1e3f 0%, #0a0a0f 100%);
             color: white;
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+            scroll-behavior: smooth;s
         }
         .glass {
             background: rgba(255, 255, 255, 0.03);
@@ -47,7 +47,6 @@
         .calc-btn:active { transform: scale(0.95); }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
-        /* Ensure no horizontal scroll on mobile */
         html, body { overflow-x: hidden; }
     </style>
 </head>
@@ -65,6 +64,7 @@
                 <div class="flex gap-4 md:gap-6">
                     <button onclick="openTool('graph')" class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] hover:text-indigo-400 transition">Grapher</button>
                     <button onclick="openTool('matrix')" class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] hover:text-purple-400 transition">Matrix</button>
+                    <button onclick="openTool('quad')" class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] hover:text-teal-400 transition">Quad</button>
                     <button onclick="openTool('calc')" class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] hover:text-pink-400 transition">Calc</button>
                 </div>
             </div>
@@ -73,7 +73,7 @@
 
     <header class="pt-36 md:pt-56 pb-12 md:pb-20 px-6 text-center">
         <div class="inline-block px-4 py-1.5 rounded-full border border-indigo-500/30 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-400 mb-6 md:mb-8 bg-indigo-500/5">
-            Precision Suite v2.2
+            Standardized Suite v2.3.1
         </div>
         <h1 class="text-4xl sm:text-6xl md:text-8xl font-extrabold mb-6 md:mb-10 tracking-tighter leading-tight">
             Explore the <br class="block md:hidden"/> <span class="math-gradient">Math Universe</span>
@@ -81,8 +81,9 @@
         <p class="text-gray-400 max-w-2xl mx-auto mb-10 md:mb-12 text-sm md:text-lg leading-relaxed">The ultimate toolkit for visualizing functions, calculating complex matrices, and solving equations with absolute precision.</p>
         
         <div class="flex flex-col md:flex-row justify-center gap-3 md:gap-5 w-full max-w-[250px] md:max-w-none mx-auto">
-            <button onclick="openTool('graph')" class="bg-white text-black w-full md:w-auto px-6 py-4 md:px-12 md:py-5 rounded-xl md:rounded-2xl font-black hover:scale-105 transition shadow-2xl text-sm md:text-base">Graphing Engine</button>
+            <button onclick="openTool('graph')" class="glass w-full md:w-auto px-6 py-4 md:px-12 md:py-5 rounded-xl md:rounded-2xl font-black hover:bg-white/5 border-white/10 transition border-purple-500/30 text-sm md:text-base text-white">Graphing Engine</button>
             <button onclick="openTool('matrix')" class="glass w-full md:w-auto px-6 py-4 md:px-12 md:py-5 rounded-xl md:rounded-2xl font-black hover:bg-white/5 transition border-purple-500/30 text-sm md:text-base">Matrix Solver</button>
+            <button onclick="openTool('quad')" class="glass w-full md:w-auto px-6 py-4 md:px-12 md:py-5 rounded-xl md:rounded-2xl font-black hover:bg-white/5 transition border-teal-500/30 text-teal-400 text-sm md:text-base">Quadratic Solver</button>
             <button onclick="openTool('calc')" class="glass w-full md:w-auto px-6 py-4 md:px-12 md:py-5 rounded-xl md:rounded-2xl font-black hover:bg-white/5 transition border-pink-500/30 text-pink-400 text-sm md:text-base">Scientific Calc</button>
         </div>
     </header>
@@ -118,6 +119,29 @@
                 <div class="mt-8 md:mt-12 pt-8 md:pt-10 border-t border-white/5">
                     <p class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest mb-2 md:mb-3">Resulting Determinant</p>
                     <div id="matrix-result" class="text-5xl md:text-7xl font-black tracking-tighter text-white">--</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quad-section" class="tool-section py-8 md:py-10">
+            <div class="flex justify-between items-center mb-4 md:mb-6">
+                <span class="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-teal-400">Algebra Core</span>
+                <button onclick="closeAll()" class="text-gray-500 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition">✕ Close</button>
+            </div>
+            <div class="glass p-6 md:p-12 rounded-[2rem] md:rounded-[4rem] w-full md:max-w-2xl mx-auto shadow-2xl text-center border-teal-500/20">
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-6">ax² + bx + c = 0</p>
+                <div class="flex gap-2 md:gap-4 mb-8 md:mb-10 justify-center items-center">
+                    <input id="quad-a" type="number" placeholder="a" class="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 text-center font-black text-lg md:text-2xl outline-none focus:border-teal-500 w-full">
+                    <div class="text-gray-500 font-bold">x² +</div>
+                    <input id="quad-b" type="number" placeholder="b" class="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 text-center font-black text-lg md:text-2xl outline-none focus:border-teal-500 w-full">
+                    <div class="text-gray-500 font-bold">x +</div>
+                    <input id="quad-c" type="number" placeholder="c" class="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 text-center font-black text-lg md:text-2xl outline-none focus:border-teal-500 w-full">
+                    <div class="text-gray-500 font-bold">= 0</div>
+                </div>
+                <button onclick="solveQuadratic()" class="w-full bg-teal-600 py-4 md:py-6 rounded-xl md:rounded-2xl font-black text-sm md:text-xl hover:bg-teal-500 transition shadow-xl shadow-teal-600/20 uppercase tracking-widest">Solve Equation</button>
+                <div class="mt-8 md:mt-12 pt-8 md:pt-10 border-t border-white/5">
+                    <p class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest mb-2 md:mb-3">Roots (x)</p>
+                    <div id="quad-result" class="text-3xl md:text-5xl font-black tracking-tighter text-white">--</div>
                 </div>
             </div>
         </section>
@@ -202,7 +226,7 @@
             } else if (name === 'matrix') { 
                 generateMatrix(); 
             }
-            // Quick delay to ensure smooth scrolling especially on mobile
+            
             setTimeout(() => {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 50);
@@ -217,17 +241,15 @@
             document.getElementById('resources-section').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Matrix Solver Logic (Updated to use responsive CSS fractions)
+        // Matrix Logic
         function generateMatrix() {
             const size = parseInt(document.getElementById('matrix-size').value);
             const container = document.getElementById('matrix-container');
-            // Replaced hard pixels with '1fr' to allow the CSS grid to shrink properly on mobile
             container.style.gridTemplateColumns = `repeat(${size}, minmax(0, 1fr))`;
             container.innerHTML = '';
             for (let i = 0; i < size * size; i++) {
                 const input = document.createElement('input');
                 input.type = 'number';
-                // Uses dynamic padding (p-3 to p-6) based on screen size
                 input.className = `matrix-val bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center font-black text-lg md:text-2xl outline-none focus:border-purple-500 focus:bg-purple-500/10 transition w-full`;
                 input.value = "0";
                 container.appendChild(input);
@@ -252,7 +274,36 @@
             document.getElementById('matrix-result').innerText = getDet(matrix);
         }
 
-        // Scientific Calculator Logic
+        // Quadratic Solver Logic
+        function solveQuadratic() {
+            const a = parseFloat(document.getElementById('quad-a').value) || 0;
+            const b = parseFloat(document.getElementById('quad-b').value) || 0;
+            const c = parseFloat(document.getElementById('quad-c').value) || 0;
+            const resultDiv = document.getElementById('quad-result');
+
+            if (a === 0) {
+                if (b === 0) resultDiv.innerText = "No solution";
+                else resultDiv.innerText = "x = " + (-c/b).toFixed(4);
+                return;
+            }
+
+            const discriminant = (b * b) - (4 * a * c);
+            
+            if (discriminant > 0) {
+                const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                resultDiv.innerText = `x₁ = ${x1.toFixed(4)}, x₂ = ${x2.toFixed(4)}`;
+            } else if (discriminant === 0) {
+                const x = -b / (2 * a);
+                resultDiv.innerText = `x = ${x.toFixed(4)}`;
+            } else {
+                const real = (-b / (2 * a)).toFixed(4);
+                const imag = (Math.sqrt(-discriminant) / (2 * a)).toFixed(4);
+                resultDiv.innerText = `${real} ± ${imag}i`;
+            }
+        }
+
+        // Calc Logic
         function updateCalcDisplay() {
             document.getElementById('calc-display').innerText = currentCalcInput;
         }
