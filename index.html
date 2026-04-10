@@ -147,40 +147,64 @@
         </section>
 
         <section id="calc-section" class="tool-section py-8 md:py-10">
-            <div class="flex justify-between items-center mb-4 md:mb-6">
-                <span class="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-pink-400">Scientific Engine</span>
-                <button onclick="closeAll()" class="text-gray-500 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition">✕ Close</button>
+    <div class="flex justify-between items-center mb-4 md:mb-6">
+        <span class="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-pink-400">Scientific Engine v2.0</span>
+        <button onclick="closeAll()" class="text-gray-500 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition">✕ Close</button>
+    </div>
+
+    <div class="glass p-6 md:p-8 rounded-[2.5rem] w-full max-w-[400px] mx-auto shadow-2xl border-white/10 relative overflow-hidden">
+        
+        <div class="bg-[#9ca3af]/20 backdrop-blur-md w-full mb-6 p-4 rounded-xl border border-black/40 shadow-inner min-h-[120px] flex flex-col justify-between text-right">
+            <div id="calc-expression" class="text-indigo-300 text-sm font-mono tracking-wide h-6 overflow-hidden"></div>
+            <div id="calc-display" class="text-4xl md:text-5xl font-light tracking-tight truncate text-white">0</div>
+        </div>
+
+        <div class="flex justify-center mb-6">
+            <div class="w-20 h-20 rounded-full bg-white/5 border border-white/10 grid grid-cols-3 grid-rows-3 items-center justify-items-center">
+                <div class="col-start-2 cursor-pointer hover:text-indigo-400">▲</div>
+                <div class="row-start-2 col-start-1 cursor-pointer hover:text-indigo-400">◀</div>
+                <div class="row-start-2 col-start-3 cursor-pointer hover:text-indigo-400">▶</div>
+                <div class="row-start-3 col-start-2 cursor-pointer hover:text-indigo-400">▼</div>
             </div>
-            <div class="glass p-6 md:p-12 rounded-[2rem] md:rounded-[4rem] w-full max-w-full md:max-w-[450px] mx-auto shadow-2xl border-pink-500/20">
-                <div class="bg-black/50 w-full mb-6 md:mb-10 p-6 md:p-12 rounded-2xl md:rounded-[2rem] text-right border border-white/5 shadow-inner">
-                    <div id="calc-display" class="text-4xl md:text-6xl font-light tracking-tight truncate text-white">0</div>
-                </div>
-                <div class="grid grid-cols-4 gap-2 md:gap-4">
-                    <button onclick="clearCalc()" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-pink-500 bg-pink-500/5 col-span-2 text-sm md:text-base">AC</button>
-                    <button onclick="delCalc()" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-gray-500 text-sm md:text-base">DEL</button>
-                    <button onclick="appendCalc('/')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-indigo-400 text-lg md:text-xl">÷</button>
-                    
-                    <button onclick="appendCalc('7')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">7</button>
-                    <button onclick="appendCalc('8')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">8</button>
-                    <button onclick="appendCalc('9')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">9</button>
-                    <button onclick="appendCalc('*')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-indigo-400 text-lg md:text-xl">×</button>
-                    
-                    <button onclick="appendCalc('4')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">4</button>
-                    <button onclick="appendCalc('5')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">5</button>
-                    <button onclick="appendCalc('6')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">6</button>
-                    <button onclick="appendCalc('-')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-indigo-400 text-lg md:text-xl">−</button>
-                    
-                    <button onclick="appendCalc('1')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">1</button>
-                    <button onclick="appendCalc('2')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">2</button>
-                    <button onclick="appendCalc('3')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">3</button>
-                    <button onclick="appendCalc('+')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-indigo-400 text-lg md:text-xl">+</button>
-                    
-                    <button onclick="appendCalc('0')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">0</button>
-                    <button onclick="appendCalc('.')" class="calc-btn py-4 md:py-7 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl">.</button>
-                    <button onclick="solveCalc()" class="calc-btn col-span-2 bg-pink-600 py-4 md:py-7 rounded-xl md:rounded-2xl font-black text-2xl md:text-4xl hover:bg-pink-500 shadow-xl shadow-pink-600/40">=</button>
-                </div>
-            </div>
-        </section>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 mb-4">
+            <button onclick="appendCalc('Math.sin(')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">sin</button>
+            <button onclick="appendCalc('Math.cos(')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">cos</button>
+            <button onclick="appendCalc('Math.tan(')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">tan</button>
+            <button onclick="appendCalc('**')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">xⁿ</button>
+            
+            <button onclick="appendCalc('Math.log10(')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">log</button>
+            <button onclick="appendCalc('Math.log(')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">ln</button>
+            <button onclick="appendCalc('(')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">(</button>
+            <button onclick="appendCalc(')')" class="calc-btn py-2 rounded-lg text-[10px] font-bold text-gray-400">)</button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-3">
+            <button onclick="appendCalc('7')" class="calc-btn py-4 rounded-xl font-bold text-xl">7</button>
+            <button onclick="appendCalc('8')" class="calc-btn py-4 rounded-xl font-bold text-xl">8</button>
+            <button onclick="appendCalc('9')" class="calc-btn py-4 rounded-xl font-bold text-xl">9</button>
+            <button onclick="delCalc()" class="calc-btn py-4 rounded-xl font-black text-xs text-orange-400 bg-orange-400/5">DEL</button>
+
+            <button onclick="appendCalc('4')" class="calc-btn py-4 rounded-xl font-bold text-xl">4</button>
+            <button onclick="appendCalc('5')" class="calc-btn py-4 rounded-xl font-bold text-xl">5</button>
+            <button onclick="appendCalc('6')" class="calc-btn py-4 rounded-xl font-bold text-xl">6</button>
+            <button onclick="appendCalc('*')" class="calc-btn py-4 rounded-xl font-bold text-xl text-indigo-400">×</button>
+
+            <button onclick="appendCalc('1')" class="calc-btn py-4 rounded-xl font-bold text-xl">1</button>
+            <button onclick="appendCalc('2')" class="calc-btn py-4 rounded-xl font-bold text-xl">2</button>
+            <button onclick="appendCalc('3')" class="calc-btn py-4 rounded-xl font-bold text-xl">3</button>
+            <button onclick="appendCalc('+')" class="calc-btn py-4 rounded-xl font-bold text-xl text-indigo-400">+</button>
+
+            <button onclick="appendCalc('0')" class="calc-btn py-4 rounded-xl font-bold text-xl">0</button>
+            <button onclick="appendCalc('.')" class="calc-btn py-4 rounded-xl font-bold text-xl">.</button>
+            <button onclick="appendCalc('Math.PI')" class="calc-btn py-4 rounded-xl font-bold text-sm text-indigo-400">π</button>
+            <button onclick="solveCalc()" class="calc-btn py-4 rounded-xl font-bold text-xl text-indigo-400">=</button>
+        </div>
+        
+        <button onclick="clearCalc()" class="w-full mt-4 py-3 rounded-xl font-black text-xs text-pink-500 bg-pink-500/5 uppercase tracking-widest">All Clear (AC)</button>
+    </div>
+</section>
     </main>
 
     <section id="resources-section" class="max-w-7xl mx-auto px-6 py-20 md:py-32 border-t border-white/5">
@@ -214,7 +238,69 @@
 
     <script>
         let calculatorInstance = null;
-        let currentCalcInput = '0';
+        let currentCalcInput = ''; 
+let displayInput = ''; 
+
+function updateCalcDisplay() {
+    const exprEl = document.getElementById('calc-expression');
+    const dispEl = document.getElementById('calc-display');
+    
+    // Safety: check if elements exist before updating to prevent freezing
+    if (exprEl) exprEl.innerText = displayInput;
+    if (dispEl) dispEl.innerText = currentCalcInput || '0';
+}
+
+function appendCalc(val) {
+    // Map internal JS functions to pretty display names
+    const visualMap = {
+        'Math.sin(': 'sin(',
+        'Math.cos(': 'cos(',
+        'Math.tan(': 'tan(',
+        'Math.log10(': 'log(',
+        'Math.log(': 'ln(',
+        'Math.PI': 'π',
+        '**': '^'
+    };
+
+    displayInput += (visualMap[val] || val);
+    currentCalcInput += val;
+    updateCalcDisplay();
+}
+
+function clearCalc() {
+    currentCalcInput = '';
+    displayInput = '';
+    updateCalcDisplay();
+}
+
+function delCalc() {
+    // Basic deletion logic
+    currentCalcInput = currentCalcInput.toString().slice(0, -1);
+    displayInput = displayInput.toString().slice(0, -1);
+    updateCalcDisplay();
+}
+
+function solveCalc() {
+    if (!currentCalcInput) return;
+    try {
+        // Evaluate the expression
+        let result = eval(currentCalcInput);
+        
+        // Format result: limited decimals to keep the "Casio" feel
+        let finalResult = Number.isInteger(result) ? result : result.toFixed(6);
+        
+        // Update UI
+        document.getElementById('calc-display').innerText = finalResult;
+        document.getElementById('calc-expression').innerText = displayInput + " =";
+        
+        // Reset inputs to the result for further calculations
+        currentCalcInput = String(finalResult);
+        displayInput = String(finalResult);
+    } catch (err) {
+        document.getElementById('calc-display').innerText = "Syntax ERROR";
+        setTimeout(clearCalc, 1000);
+    }
+}
 
         function openTool(name) {
             document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('is-active'));
@@ -330,6 +416,7 @@
                 setTimeout(clearCalc, 1000);
             }
         }
+        
     </script>
 </body>
 </html>
